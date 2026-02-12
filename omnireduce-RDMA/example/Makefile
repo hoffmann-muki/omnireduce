@@ -2,7 +2,7 @@ MPICC  := mpicxx
 CC  := g++
 INCLUDE  :=-I../build/include
 LIBPATH  :=-L../build
-LDLIBS  := -libverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options -lomnireduce 
+LDLIBS  := -libverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options -lomnireduce -ltinfo -lncurses
 CXXFLAGS  := -Wall -Wextra -fPIC -O3 -std=c++11 
 
 APPS  :=  worker aggregator
