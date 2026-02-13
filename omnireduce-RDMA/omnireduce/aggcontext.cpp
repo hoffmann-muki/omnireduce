@@ -248,11 +248,14 @@ namespace omnireduce {
             std::cerr<<"failed to get IB devices list"<<std::endl;
             exit(1);
         }
-	    if (!num_devices)
-	    {
-	    	std::cerr<<"Found %d device(s)"<<std::endl;
-	    	exit(1);
-	    }
+        if (!num_devices)
+        {
+            std::cerr << "Found 0 device(s)" << std::endl;
+            exit(1);
+        }
+        else {
+            std::cout << "Found " << num_devices << " device(s)" << std::endl;
+        }
         /* search for the specific device we want to work with */
         strcpy(dev_name, omnireduce_par.getIbHca());
 	    for (int i = 0; i < num_devices; i++)
