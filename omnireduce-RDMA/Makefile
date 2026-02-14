@@ -6,10 +6,20 @@ endif
 SOURCEDIR  := ${OMNIREDUCE_PATH}/omnireduce
 DESTDIR  := ${OMNIREDUCE_PATH}/build
 
-INCLUDE  :=-I ${OMNIREDUCE_PATH}
-LDFLAGS  := -shared -lstdc++
-LDLIBS  := -libverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
 CXXFLAGS  := -O3 -std=c++11
+
+# Base include for repo
+INCLUDE  := -I ${OMNIREDUCE_PATH}
+
+# If a conda prefix is available, add its include and lib paths
+ifdef CONDA_PREFIX
+	INCLUDE += -I ${CONDA_PREFIX}/include
+	LDFLAGS  := -shared -lstdc++ -L${CONDA_PREFIX}/lib
+	LDLIBS  := -lverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
+else
+	LDFLAGS  := -shared -lstdc++
+	LDLIBS  := -lverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
+endif
 ifeq ($(USE_CUDA),ON)
 $(info "USE_CUDA ON")
 CXXFLAGS += -DUSE_CUDA --compiler-options -fPIC 
