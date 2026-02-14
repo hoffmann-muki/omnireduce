@@ -14,7 +14,7 @@ INCLUDE  := -I ${OMNIREDUCE_PATH}
 # If a conda prefix is available, add its include and lib paths
 ifdef CONDA_PREFIX
 	INCLUDE += -I ${CONDA_PREFIX}/include
-	LDFLAGS  := -shared -lstdc++ -L${CONDA_PREFIX}/lib
+	LDFLAGS  := -shared -lstdc++ -L${CONDA_PREFIX}/lib -Wl,-rpath,${CONDA_PREFIX}/lib
 	LDLIBS  := -lverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
 else
 	LDFLAGS  := -shared -lstdc++
