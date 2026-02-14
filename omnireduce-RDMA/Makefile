@@ -15,10 +15,11 @@ INCLUDE  := -I ${OMNIREDUCE_PATH}
 ifdef CONDA_PREFIX
 	INCLUDE += -I ${CONDA_PREFIX}/include
 	LDFLAGS  := -shared -lstdc++ -L${CONDA_PREFIX}/lib -Wl,-rpath,${CONDA_PREFIX}/lib
-	LDLIBS  := -lverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
+	# link against libibverbs (package provides libibverbs.so) -> use -libverbs
+	LDLIBS  := -libverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
 else
 	LDFLAGS  := -shared -lstdc++
-	LDLIBS  := -lverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
+	LDLIBS  := -libverbs -lboost_system -lboost_thread -lboost_chrono -lboost_program_options
 endif
 ifeq ($(USE_CUDA),ON)
 $(info "USE_CUDA ON")
